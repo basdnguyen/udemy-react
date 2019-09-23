@@ -1,9 +1,9 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
-import React from "react";
+import React, { ButtonHTMLAttributes } from "react";
+import Base from "../Base";
 
-const Button: React.FC<any> = ({ children, ...props }) => {
-  return <button
+const Button: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({ children, css, ...props }) => {
+  return <Base
+    element="button"
     css={{
       borderRadius: "2px",
       backgroundColor: "#ec5252",
@@ -12,10 +12,11 @@ const Button: React.FC<any> = ({ children, ...props }) => {
       fontWeight: 600,
       fontSize: "16px",
       padding: "12px",
+      ...css as any,
     }}
     {...props}>
       {children}
-    </button>;
+    </Base>;
 };
 
 export default Button;
