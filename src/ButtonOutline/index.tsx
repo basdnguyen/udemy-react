@@ -1,21 +1,16 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
-import React from "react";
+import React, { ButtonHTMLAttributes } from "react";
+import Button from "../Button";
 
-const ButtonOutline: React.FC = ({ children, ...props }) => {
-  return <button
+const ButtonOutline: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({ children, css }) => {
+  return <Button
     css={{
-      borderRadius: "2px",
       backgroundColor: "rgba(0, 0, 0, 0)",
       border: "1px solid #686f7a",
       color: "#686f7a",
-      fontWeight: 600,
-      fontSize: "16px",
-      padding: "12px"
-    }}
-    {...props}>
+      ...css as any,
+    }}>
       {children}
-    </button>;
+    </Button>;
 };
 
 export default ButtonOutline;
