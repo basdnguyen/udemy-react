@@ -15,15 +15,31 @@
 
 // [START gae_node_request_example]
 const express = require('express');
+const { ApolloServer, gql } = require('apollo-server-express');
+
+const typeDefs = gql`
+  type Query {
+    hello: String
+  }
+`;
+
+const resolvers = {
+  Query: {
+    hello: () => 'Hello there'
+  }
+}
+
+const server = new ApolloServer({ typeDefs, resolvers });
 
 const app = express();
-
 app.use(express.static('build'));
+
+server.applyMiddleware({ app });
 
 // Start the server
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
+  console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`)
   console.log('Press Ctrl+C to quit.');
 });
 // [END gae_node_request_example]

@@ -7,9 +7,9 @@ export interface Props {
   element?: keyof JSX.IntrinsicElements;
 }
 
-const Base: React.FC<Props> = ({ element = "div", children, css }) => {
+const Base: React.FC<Props> = ({ element = "div", children, css, ...props }) => {
   const Element = element as any;
-  return <Element css={css} children={children} />;
+  return <Element css={css} children={children} {...props} />;
 }
 
 export default Base;

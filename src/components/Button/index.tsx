@@ -6,12 +6,13 @@ const Button: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({ children, c
     element="button"
     css={{
       borderRadius: "2px",
-      backgroundColor: "#ec5252",
-      border: "0",
-      color: "white",
       fontWeight: 600,
       fontSize: "16px",
       padding: "12px",
+      cursor: "pointer",
+      "&:focus": {
+        outline: "0",
+      },
       ...css as any,
     }}
     {...props}>
