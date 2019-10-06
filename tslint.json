@@ -1,9 +1,8 @@
 {
-    "defaultSeverity": "error",
-    "extends": ["tslint:latest", "tslint-react"],
-    "jsRules": {},
-    "rules": {
-      "prettier": true,
-    },
-    "rulesDirectory": []
+  "rulesDirectory": [
+    "tslint-plugin-prettier"
+  ],
+  "rules": {
+    "prettier": true
+  }
 }
