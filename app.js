@@ -16,16 +16,40 @@
 // [START gae_node_request_example]
 const express = require('express');
 const { ApolloServer, gql } = require('apollo-server-express');
+const Firestore = require('@google-cloud/firestore');
+const bcrypt = require("bcrypt");
+
+const db = new Firestore({
+  projectId: 'akane-1247',
+  keyFilename: './akane-1247-9a4dcd68d623.json',
+});
 
 const typeDefs = gql`
   type Query {
     hello: String
+  }
+  type Mutation {
+    signup(name: String, email: String, password: String): String
   }
 `;
 
 const resolvers = {
   Query: {
     hello: () => 'Hello there'
+  },
+  Mutation: {
+    signup: async (parent, { name, email, password }, context, info) => {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const usersRef = db.collection('users');
+      const newUserRef = usersRef.doc();
+      await newUserRef.set({
+        id: newUserRef.id,
+        name,
+        email,
+        password: hashedPassword,
+      });
+      return newUserRef.id;
+    }
   }
 }
 
