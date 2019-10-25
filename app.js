@@ -18,15 +18,20 @@ const express = require('express');
 const { ApolloServer, gql } = require('apollo-server-express');
 const Firestore = require('@google-cloud/firestore');
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const fs = require("fs");
 
 const db = new Firestore({
   projectId: 'akane-1247',
-  keyFilename: './akane-1247-9a4dcd68d623.json',
+  keyFilename: './api-key.json',
 });
+
+const privateKey  = fs.readFileSync('./private.key', 'utf8');
+const publicKey  = fs.readFileSync('./public.key', 'utf8');
 
 const typeDefs = gql`
   type Query {
-    hello: String
+    login(email: String, password: String): String
   }
   type Mutation {
     signup(name: String, email: String, password: String): String
@@ -35,7 +40,24 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    hello: () => 'Hello there'
+    login: async (parent, { email, password }) => {
+      try {
+        const snapshot = await db.collection('users').where('email', '==', email).get();
+        if (snapshot.empty) {
+          throw new Error('Username or password is incorrect')
+        }
+        const user = snapshot.docs[0].data();
+        const match = await bcrypt.compare(password, user.password);
+        if (!match) {
+          throw new Error('Username or password is incorrect');
+        }
+
+        // jwt.verify(token, publicKey, { algorithm: 'RS256' });
+        return 'OK';
+      } catch (error) {
+        return error.message;
+      }
+    }
   },
   Mutation: {
     signup: async (parent, { name, email, password }, context, info) => {
@@ -48,7 +70,7 @@ const resolvers = {
         email,
         password: hashedPassword,
       });
-      return newUserRef.id;
+      return jwt.sign({user_id: newUserRef.id}, privateKey, { algorithm: 'RS256' });
     }
   }
 }
