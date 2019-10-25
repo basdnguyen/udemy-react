@@ -4,13 +4,15 @@
   "main": "app.js",
   "license": "MIT",
   "scripts": {
-    "start": "node app.js"
+    "start": "ts-node app.ts"
   },
   "dependencies": {
     "@google-cloud/firestore": "^2.5.0",
     "apollo-server-express": "^2.9.7",
     "bcrypt": "^3.0.6",
     "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.4"
   }
 }
