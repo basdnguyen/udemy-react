@@ -14,5 +14,10 @@
     "jsonwebtoken": "^8.5.1",
     "ts-node": "^8.4.1",
     "typescript": "^3.6.4"
+  },
+  "devDependencies": {
+    "prettier": "^1.18.2",
+    "tslint": "^5.20.0",
+    "tslint-plugin-prettier": "^2.0.1"
   }
 }
