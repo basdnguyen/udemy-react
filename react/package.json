@@ -12,6 +12,7 @@
     "@types/react-dom": "16.8.5",
     "@types/react-helmet": "^5.0.11",
     "apollo-boost": "^0.4.4",
+    "apollo-link-context": "^1.0.19",
     "downshift": "^3.2.14",
     "emotion": "^10.0.17",
     "formik": "^1.5.8",

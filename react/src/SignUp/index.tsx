@@ -9,7 +9,7 @@ import View from "../components/View";
 
 const SIGN_UP = gql`
   mutation($name: String!, $email: String!, $password: String!) {
-    signup(name: $name, email: $email, password: $password)
+    token: signup(name: $name, email: $email, password: $password)
   }
 `;
 
@@ -20,6 +20,9 @@ const SignUp: React.FC = () => {
   }
   if (error) {
     return <span>{error.message}</span>;
+  }
+  if (data) {
+    localStorage.setItem("token", data.token);
   }
   function onSubmit(values: FormikValues) {
     signUp({ variables: { ...values } });
