@@ -8,9 +8,21 @@ import Link from "./components/Link";
 import LinkIcon from "./components/LinkIcon";
 import View from "./components/View";
 import SignUp from "./SignUp";
+import { useQuery } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
+
+const GET_CURRENT_USER = gql`
+  query {
+    currentUser {
+      id
+      name
+    }
+  }
+`;
 
 const App: React.FC = () => {
-  const [isOpenSignup, setIsOpenSignup] = React.useState(true);
+  const [isOpenSignup, setIsOpenSignup] = React.useState(false);
+  const { loading, error, data } = useQuery(GET_CURRENT_USER);
   return (
     <View css={{ backgroundColor: "lightgrey", minHeight: "100vh" }}>
       <Helmet>
@@ -85,13 +97,23 @@ const App: React.FC = () => {
         <LinkIcon css={{ margin: "0 12px" }}>
           <FaShoppingCart color="#686f7a" size={"1.1em"} />
         </LinkIcon>
-        <ButtonOutline css={{ marginLeft: "4px" }}>Log In</ButtonOutline>
-        <ButtonFilled
-          css={{ marginLeft: "4px" }}
-          onClick={() => setIsOpenSignup(true)}
-        >
-          Sign Up
-        </ButtonFilled>
+        {!loading && !error && !data.currentUser && (
+          <View css={{ flexDirection: "row" }}>
+            <ButtonOutline css={{ marginLeft: "4px" }}>Log In</ButtonOutline>
+            <ButtonFilled
+              css={{ marginLeft: "4px" }}
+              onClick={() => setIsOpenSignup(true)}
+            >
+              Sign Up
+            </ButtonFilled>
+          </View>
+        )}
+        {!loading && !error && data.currentUser && (
+          <View>
+            {data.currentUser.name}
+            <ButtonFilled css={{ marginLeft: "4px" }}>Log Out</ButtonFilled>
+          </View>
+        )}
       </View>
       {isOpenSignup && <SignUp />}
     </View>
