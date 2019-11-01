@@ -6,10 +6,11 @@ import ButtonOutline from "./components/ButtonOutline";
 import Input from "./components/Input";
 import Link from "./components/Link";
 import LinkIcon from "./components/LinkIcon";
-import View from "./components/View";
+import Column from "./components/Column";
 import SignUp from "./SignUp";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
+import Row from "./components/Row";
 
 const GET_CURRENT_USER = gql`
   query {
@@ -22,9 +23,13 @@ const GET_CURRENT_USER = gql`
 
 const App: React.FC = () => {
   const [isOpenSignup, setIsOpenSignup] = React.useState(false);
-  const { loading, error, data } = useQuery(GET_CURRENT_USER);
+  const { loading, error, data, refetch } = useQuery(GET_CURRENT_USER);
+  function logout() {
+    localStorage.removeItem("token");
+    refetch();
+  }
   return (
-    <View css={{ backgroundColor: "lightgrey", minHeight: "100vh" }}>
+    <Column css={{ backgroundColor: "lightgrey", minHeight: "100vh" }}>
       <Helmet>
         <title>Online Courses - Learn Anything, Anywhere | Udemy</title>
         <link
@@ -34,7 +39,7 @@ const App: React.FC = () => {
           sizes="196x196"
         ></link>
       </Helmet>
-      <View
+      <Column
         css={{
           backgroundColor: "white",
           height: "64px",
@@ -45,7 +50,7 @@ const App: React.FC = () => {
           boxSizing: "border-box"
         }}
       >
-        <View css={{ marginRight: "16px" }}>
+        <Column css={{ marginRight: "16px" }}>
           <img
             src="https://www.udemy.com/staticx/udemy/images/v6/logo-coral.svg"
             alt="Udemy"
@@ -53,12 +58,10 @@ const App: React.FC = () => {
             height="100%"
             data-purpose="udemy-brand-logo"
           ></img>
-        </View>
-        <View
+        </Column>
+        <Row
           css={{
             flexGrow: 1,
-            display: "flex",
-            flexDirection: "row",
             alignItems: "stretch",
             backgroundColor: "#f2f3f5",
             border: "1px solid transparent",
@@ -81,7 +84,7 @@ const App: React.FC = () => {
               backgroundColor: "transparent"
             }}
           />
-          <View
+          <Column
             css={{
               display: "flex",
               alignItems: "center",
@@ -90,15 +93,15 @@ const App: React.FC = () => {
             }}
           >
             <FaSearch color="#ec5252" size={"1em"} />
-          </View>
-        </View>
+          </Column>
+        </Row>
         <Link css={{ marginLeft: "15px" }}>Teams and Enterprises</Link>
         <Link css={{ marginLeft: "3px" }}>Teach on Udemy</Link>
         <LinkIcon css={{ margin: "0 12px" }}>
           <FaShoppingCart color="#686f7a" size={"1.1em"} />
         </LinkIcon>
         {!loading && !error && !data.currentUser && (
-          <View css={{ flexDirection: "row" }}>
+          <Row>
             <ButtonOutline css={{ marginLeft: "4px" }}>Log In</ButtonOutline>
             <ButtonFilled
               css={{ marginLeft: "4px" }}
@@ -106,17 +109,17 @@ const App: React.FC = () => {
             >
               Sign Up
             </ButtonFilled>
-          </View>
+          </Row>
         )}
         {!loading && !error && data.currentUser && (
-          <View>
+          <Row css={{ alignItems: "center" }}>
             {data.currentUser.name}
-            <ButtonFilled css={{ marginLeft: "4px" }}>Log Out</ButtonFilled>
-          </View>
+            <ButtonFilled css={{ marginLeft: "12px" }} onClick={logout}>Log Out</ButtonFilled>
+          </Row>
         )}
-      </View>
+      </Column>
       {isOpenSignup && <SignUp />}
-    </View>
+    </Column>
   );
 };
 

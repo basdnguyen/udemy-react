@@ -5,7 +5,8 @@ import * as React from "react";
 import { FaTimes } from "react-icons/fa";
 import ButtonFilled from "../components/ButtonFilled";
 import Input from "../components/Input";
-import View from "../components/View";
+import Column from "../components/Column";
+import Row from "../components/Row";
 
 const SIGN_UP = gql`
   mutation($name: String!, $email: String!, $password: String!) {
@@ -28,7 +29,7 @@ const SignUp: React.FC = () => {
     signUp({ variables: { ...values } });
   }
   return (
-    <View
+    <Column
       css={{
         position: "fixed",
         top: 0,
@@ -40,12 +41,11 @@ const SignUp: React.FC = () => {
         justifyContent: "center"
       }}
     >
-      <View
+      <Column
         css={{ backgroundColor: "white", width: "380px", borderRadius: "5px" }}
       >
-        <View
+        <Row
           css={{
-            flexDirection: "row",
             justifyContent: "space-between",
             padding: "24px",
             alignItems: "center",
@@ -54,13 +54,13 @@ const SignUp: React.FC = () => {
         >
           Sign Up and Start Learning!
           <FaTimes size="1.5rem" color="#686f7a" />
-        </View>
+        </Row>
         <Formik
           initialValues={{ name: "", email: "", password: "" }}
           onSubmit={onSubmit}
           render={({ values, handleChange }) => (
             <Form>
-              <View css={{ padding: "24px" }}>
+              <Column css={{ padding: "24px" }}>
                 <Input
                   placeholder="Full Name"
                   name="name"
@@ -104,12 +104,12 @@ const SignUp: React.FC = () => {
                 <ButtonFilled css={{ marginTop: "6px" }} type="submit">
                   Sign Up
                 </ButtonFilled>
-              </View>
+              </Column>
             </Form>
           )}
         />
-      </View>
-    </View>
+      </Column>
+    </Column>
   );
 };
 
