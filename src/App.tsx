@@ -11,6 +11,7 @@ import SignUp from "./SignUp";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import Row from "./components/Row";
+import LogIn from "./LogIn";
 
 const GET_CURRENT_USER = gql`
   query {
@@ -22,10 +23,16 @@ const GET_CURRENT_USER = gql`
 `;
 
 const App: React.FC = () => {
-  const [isOpenSignup, setIsOpenSignup] = React.useState(false);
+  const [isOpenSignUp, setIsOpenSignUp] = React.useState(false);
+  const [isOpenLogIn, setIsOpenLogIn] = React.useState(false);
   const { loading, error, data, refetch } = useQuery(GET_CURRENT_USER);
   function logout() {
     localStorage.removeItem("token");
+    refetch();
+  }
+  function onLogInSuccess(token: string) {
+    localStorage.setItem("token", token);
+    setIsOpenLogIn(false);
     refetch();
   }
   return (
@@ -102,10 +109,15 @@ const App: React.FC = () => {
         </LinkIcon>
         {!loading && !error && !data.currentUser && (
           <Row>
-            <ButtonOutline css={{ marginLeft: "4px" }}>Log In</ButtonOutline>
+            <ButtonOutline
+              css={{ marginLeft: "4px" }}
+              onClick={setIsOpenLogIn.bind(null, true)}
+            >
+              Log In
+            </ButtonOutline>
             <ButtonFilled
               css={{ marginLeft: "4px" }}
-              onClick={() => setIsOpenSignup(true)}
+              onClick={setIsOpenSignUp.bind(null, true)}
             >
               Sign Up
             </ButtonFilled>
@@ -114,11 +126,19 @@ const App: React.FC = () => {
         {!loading && !error && data.currentUser && (
           <Row css={{ alignItems: "center" }}>
             {data.currentUser.name}
-            <ButtonFilled css={{ marginLeft: "12px" }} onClick={logout}>Log Out</ButtonFilled>
+            <ButtonFilled css={{ marginLeft: "12px" }} onClick={logout}>
+              Log Out
+            </ButtonFilled>
           </Row>
         )}
       </Column>
-      {isOpenSignup && <SignUp />}
+      {isOpenSignUp && <SignUp />}
+      {isOpenLogIn && (
+        <LogIn
+          onClose={setIsOpenLogIn.bind(null, false)}
+          onSuccess={onLogInSuccess}
+        />
+      )}
     </Column>
   );
 };
