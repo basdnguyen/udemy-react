@@ -32,7 +32,8 @@ const client = new ApolloClient({
 
 const theme: Theme = {
   colors: {
-    primary: "#ec5252"
+    primary: "#ec5252",
+    fade: "lightgray"
   }
 };
 

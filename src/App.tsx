@@ -103,17 +103,23 @@ const App: React.FC = () => {
             css={{
               display: "flex",
               alignItems: "center",
-              padding: "12px",
-              alignSelf: "center"
+              justifyContent: "center",
+              alignSelf: "stretch",
+              color: theme.colors.primary,
+              "&:hover": {
+                color: "white",
+                backgroundColor: theme.colors.primary
+              },
+              padding: "0 14px"
             }}
           >
-            <FaSearch color={theme.colors.primary} size={"1em"} />
+            <FaSearch size={"1em"} />
           </Column>
         </Row>
         <Link css={{ marginLeft: "15px" }}>Teams and Enterprises</Link>
         <Link css={{ marginLeft: "3px" }}>Teach on Udemy</Link>
         <LinkIcon css={{ margin: "0 12px" }}>
-          <FaShoppingCart color={theme.colors.primary} size={"1.1em"} />
+          <FaShoppingCart size={"1.1em"} />
         </LinkIcon>
         {!loading && !error && !data.currentUser && (
           <Row>
