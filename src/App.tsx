@@ -12,6 +12,8 @@ import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import Row from "./components/Row";
 import LogIn from "./LogIn";
+import { useTheme } from "emotion-theming";
+import { Theme } from "./Theme";
 
 const GET_CURRENT_USER = gql`
   query {
@@ -23,6 +25,7 @@ const GET_CURRENT_USER = gql`
 `;
 
 const App: React.FC = () => {
+  const theme = useTheme<Theme>();
   const [isOpenSignUp, setIsOpenSignUp] = React.useState(false);
   const [isOpenLogIn, setIsOpenLogIn] = React.useState(false);
   const { loading, error, data, refetch } = useQuery(GET_CURRENT_USER);
@@ -104,13 +107,13 @@ const App: React.FC = () => {
               alignSelf: "center"
             }}
           >
-            <FaSearch color="#ec5252" size={"1em"} />
+            <FaSearch color={theme.colors.primary} size={"1em"} />
           </Column>
         </Row>
         <Link css={{ marginLeft: "15px" }}>Teams and Enterprises</Link>
         <Link css={{ marginLeft: "3px" }}>Teach on Udemy</Link>
         <LinkIcon css={{ margin: "0 12px" }}>
-          <FaShoppingCart color="#686f7a" size={"1.1em"} />
+          <FaShoppingCart color={theme.colors.primary} size={"1.1em"} />
         </LinkIcon>
         {!loading && !error && !data.currentUser && (
           <Row>

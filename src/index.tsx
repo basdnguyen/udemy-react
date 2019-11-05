@@ -8,6 +8,8 @@ import { ApolloClient } from "apollo-boost";
 import { createHttpLink } from "apollo-link-http";
 import { setContext } from "apollo-link-context";
 import { InMemoryCache } from "apollo-cache-inmemory";
+import { ThemeProvider } from "emotion-theming";
+import { Theme } from "./Theme";
 
 const httpLink = createHttpLink({
   uri: "http://localhost:8080/graphql"
@@ -28,9 +30,17 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 });
 
+const theme: Theme = {
+  colors: {
+    primary: "#ec5252"
+  }
+};
+
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <App />
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
   </ApolloProvider>,
   document.getElementById("root")
 );
