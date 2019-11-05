@@ -35,6 +35,11 @@ const App: React.FC = () => {
     setIsOpenLogIn(false);
     refetch();
   }
+  function onSignUpSuccess(token: string) {
+    localStorage.setItem("token", token);
+    setIsOpenSignUp(false);
+    refetch();
+  }
   return (
     <Column css={{ backgroundColor: "lightgrey", minHeight: "100vh" }}>
       <Helmet>
@@ -132,7 +137,12 @@ const App: React.FC = () => {
           </Row>
         )}
       </Column>
-      {isOpenSignUp && <SignUp />}
+      {isOpenSignUp && (
+        <SignUp
+          onClose={setIsOpenSignUp.bind(null, false)}
+          onSuccess={onSignUpSuccess}
+        />
+      )}
       {isOpenLogIn && (
         <LogIn
           onClose={setIsOpenLogIn.bind(null, false)}

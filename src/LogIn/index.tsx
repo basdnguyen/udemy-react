@@ -7,6 +7,7 @@ import ButtonFilled from "../components/ButtonFilled";
 import Input from "../components/Input";
 import Column from "../components/Column";
 import Row from "../components/Row";
+import Button from "../components/Button";
 
 const LOG_IN = gql`
   query($email: String!, $password: String!) {
@@ -58,7 +59,9 @@ const LogIn: React.FC<Props> = ({ onClose, onSuccess }) => {
           }}
         >
           Log In to Your Udemy Account!
+          <Button css={{ padding: "0" }} onClick={onClose}>
           <FaTimes size="1.5rem" color="#686f7a" />
+          </Button>
         </Row>
         <Formik
           initialValues={{ name: "", email: "", password: "" }}

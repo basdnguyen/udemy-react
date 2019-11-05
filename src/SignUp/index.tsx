@@ -7,6 +7,7 @@ import ButtonFilled from "../components/ButtonFilled";
 import Input from "../components/Input";
 import Column from "../components/Column";
 import Row from "../components/Row";
+import Button from "../components/Button";
 
 const SIGN_UP = gql`
   mutation($name: String!, $email: String!, $password: String!) {
@@ -14,7 +15,12 @@ const SIGN_UP = gql`
   }
 `;
 
-const SignUp: React.FC = () => {
+export interface Props {
+  onClose: () => void;
+  onSuccess: (token: string) => void;
+}
+
+const SignUp: React.FC<Props> = ({ onClose, onSuccess }) => {
   const [signUp, { loading, error, data }] = useMutation(SIGN_UP);
   if (loading) {
     return <span>Loading...</span>;
@@ -23,7 +29,7 @@ const SignUp: React.FC = () => {
     return <span>{error.message}</span>;
   }
   if (data) {
-    localStorage.setItem("token", data.token);
+    onSuccess(data.token);
   }
   function onSubmit(values: FormikValues) {
     signUp({ variables: { ...values } });
@@ -53,7 +59,9 @@ const SignUp: React.FC = () => {
           }}
         >
           Sign Up and Start Learning!
-          <FaTimes size="1.5rem" color="#686f7a" />
+          <Button css={{ padding: "0" }} onClick={onClose}>
+            <FaTimes size="1.5rem" color="#686f7a" />
+          </Button>
         </Row>
         <Formik
           initialValues={{ name: "", email: "", password: "" }}
