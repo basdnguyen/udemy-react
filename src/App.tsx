@@ -26,9 +26,7 @@ const App: React.FC = () => {
           }}
         >
           <Column css={{ width: "500px" }}>
-            <Text
-              css={{ fontSize: "2.5rem", color: "white", fontWeight: "bold" }}
-            >
+            <Text css={{ fontSize: "2.5rem", color: "white", fontWeight: 600 }}>
               Learn on your schedule
             </Text>
             <Row css={{ margin: "20px 0" }}>
@@ -43,25 +41,20 @@ const App: React.FC = () => {
               css={{
                 flexGrow: 1,
                 alignItems: "stretch",
-                backgroundColor: "#f2f3f5",
-                border: "1px solid transparent",
-                borderRadius: "2px",
-                boxSizing: "border-box",
-                "&:focus-within": {
-                  border: "1px solid #686f7a",
-                  backgroundColor: "transparent"
-                }
+                boxSizing: "border-box"
               }}
             >
               <Input
                 placeholder="What do you want to learn?"
                 css={{
-                  padding: "10px 12px",
+                  padding: "14px 12px",
                   boxSizing: "border-box",
-                  fontSize: "14px",
+                  fontSize: "20px",
                   flexGrow: 1,
                   border: 0,
-                  backgroundColor: "transparent"
+                  backgroundColor: "white",
+                  borderTopLeftRadius: "2px",
+                  borderBottomLeftRadius: "2px"
                 }}
               />
               <Column
@@ -69,13 +62,15 @@ const App: React.FC = () => {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  alignSelf: "stretch",
                   color: theme.colors.primary,
+                  backgroundColor: "white",
+                  borderTopRightRadius: "2px",
+                  borderBottomRightRadius: "2px",
                   "&:hover": {
                     color: "white",
                     backgroundColor: theme.colors.primary
                   },
-                  padding: "0 14px"
+                  padding: "0 16px"
                 }}
               >
                 <FaSearch size={"1em"} />
