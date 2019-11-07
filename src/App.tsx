@@ -5,7 +5,7 @@ import Head from "./Head";
 import Text from "./components/Text";
 import Row from "./components/Row";
 import Input from "./components/Input";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaAd } from "react-icons/fa";
 import { Theme } from "./Theme";
 import { useTheme } from "emotion-theming";
 
@@ -78,6 +78,71 @@ const App: React.FC = () => {
             </Row>
           </Column>
         </Column>
+        <Row
+          css={{
+            height: 85,
+            background: "linear-gradient(-45deg,#EC5252 0%,#6E1A52 100%)"
+          }}
+        >
+          <Row
+            css={{
+              color: "white",
+              alignItems: "center",
+              flexGrow: 1,
+              justifyContent: "center"
+            }}
+          >
+            <Column>
+              <FaAd size={30} />
+            </Column>
+            <Column css={{ padding: "0 12px" }}>
+              <Text css={{ fontWeight: "bold", fontSize: 17 }}>
+                100,000 online courses
+              </Text>
+              <Text css={{ fontSize: 15 }}>
+                Explore a variety of fresh topics
+              </Text>
+            </Column>
+          </Row>
+          <Row
+            css={{
+              color: "white",
+              alignItems: "center",
+              flexGrow: 1,
+              justifyContent: "center"
+            }}
+          >
+            <Column>
+              <FaAd size={30} />
+            </Column>
+            <Column css={{ padding: "0 12px" }}>
+              <Text css={{ fontWeight: "bold", fontSize: 17 }}>
+                Expert instruction
+              </Text>
+              <Text css={{ fontSize: 15 }}>
+                Find the right instructor for you
+              </Text>
+            </Column>
+          </Row>
+          <Row
+            css={{
+              color: "white",
+              alignItems: "center",
+              flexGrow: 1,
+              justifyContent: "center"
+            }}
+          >
+            <Column>
+              <FaAd size={30} />
+            </Column>
+            <Column css={{ padding: "0 12px" }}>
+              <Text css={{ fontWeight: "bold", fontSize: 17 }}>
+                Lifetime access
+              </Text>
+              <Text css={{ fontSize: 15 }}>Learn on your schedule</Text>
+            </Column>
+          </Row>
+        </Row>
       </Column>
     </>
   );
