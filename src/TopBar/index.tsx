@@ -2,17 +2,19 @@ import React from "react";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
-import { useTheme } from "emotion-theming";
-import { Theme } from "../Theme";
-import Column from "../components/Column";
-import Row from "../components/Row";
-import Input from "../components/Input";
-import Link from "../components/Link";
-import LinkIcon from "../components/LinkIcon";
-import ButtonOutline from "../components/ButtonOutline";
-import ButtonFilled from "../components/ButtonFilled";
 import SignUp from "../SignUp";
 import LogIn from "../LogIn";
+import {
+  Theme,
+  Column,
+  Row,
+  Input,
+  Link,
+  LinkIcon,
+  ButtonOutline,
+  ButtonFilled,
+  useTheme
+} from "bastilion";
 
 const GET_CURRENT_USER = gql`
   query {

@@ -8,11 +8,12 @@ import { ApolloClient } from "apollo-boost";
 import { createHttpLink } from "apollo-link-http";
 import { setContext } from "apollo-link-context";
 import { InMemoryCache } from "apollo-cache-inmemory";
-import { ThemeProvider } from "emotion-theming";
-import { Theme } from "./Theme";
+import { Theme, Provider } from "bastilion";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:8080/graphql"
+  uri: `${
+    process.env.NODE_ENV !== "production" ? "http://localhost:8080" : ""
+  }/graphql`
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -39,9 +40,9 @@ const theme: Theme = {
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <ThemeProvider theme={theme}>
+    <Provider theme={theme}>
       <App />
-    </ThemeProvider>
+    </Provider>
   </ApolloProvider>,
   document.getElementById("root")
 );

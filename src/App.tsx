@@ -1,16 +1,12 @@
 import React from "react";
-import Column from "./components/Column";
 import TopBar from "./TopBar";
 import Head from "./Head";
-import Text from "./components/Text";
-import Row from "./components/Row";
-import Input from "./components/Input";
 import { FaSearch, FaAd } from "react-icons/fa";
-import { Theme } from "./Theme";
-import { useTheme } from "emotion-theming";
+import { Theme, Column, Row, Input, Text, useTheme } from "bastilion";
 
 const App: React.FC = () => {
   const theme: Theme = useTheme();
+  console.log(theme);
   return (
     <>
       <Head />

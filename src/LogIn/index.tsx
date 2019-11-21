@@ -3,11 +3,7 @@ import { gql } from "apollo-boost";
 import { Form, Formik, FormikValues } from "formik";
 import * as React from "react";
 import { FaTimes } from "react-icons/fa";
-import ButtonFilled from "../components/ButtonFilled";
-import Input from "../components/Input";
-import Column from "../components/Column";
-import Row from "../components/Row";
-import Button from "../components/Button";
+import { Column, Row, Button, Input, ButtonFilled } from "bastilion";
 
 const LOG_IN = gql`
   query($email: String!, $password: String!) {
